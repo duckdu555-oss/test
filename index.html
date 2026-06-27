@@ -1,169 +1,222 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Glass Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>홈페이지</title>
 
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
     }
 
     body {
       min-height: 100vh;
       background: #ffffff;
-      font-family: Arial, sans-serif;
+      font-family: fantasy, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      padding: 42px 22px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 로그인폼 밖 12시 방향 큰 로고 */
+    .top-logo {
+      width: 100%;
+      height: 165px;
+      margin-bottom: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .login-wrap {
-      width: 100%;
-      max-width: 390px;
-      padding: 20px;
-    }
-
-    /* 투명 유리판 로그인폼 */
-    .glass-panel {
-      width: 100%;
-      padding: 28px 22px 24px;
-      border-radius: 28px;
-      background: transparent;
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-
-      border-top: 1px solid rgba(255, 255, 255, 0.95);
-      border-left: 1px solid rgba(255, 255, 255, 0.95);
-      border-right: 1px solid rgba(0, 0, 0, 0.08);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-
-      box-shadow:
-        0 18px 45px rgba(0, 0, 0, 0.10),
-        inset 1px 1px 0 rgba(255, 255, 255, 0.9),
-        inset -1px -1px 0 rgba(0, 0, 0, 0.05);
-    }
-
-    /* 12시 로고/사진 자리 */
-    .logo-area {
-      height: 115px;
-      margin-bottom: 24px;
-      border-radius: 22px;
-      background: transparent;
-
-      border-top: 1px solid rgba(255, 255, 255, 0.9);
-      border-left: 1px solid rgba(255, 255, 255, 0.9);
-      border-right: 1px solid rgba(0, 0, 0, 0.08);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-
-      box-shadow:
-        inset 1px 1px 0 rgba(255, 255, 255, 0.85),
-        inset -1px -1px 0 rgba(0, 0, 0, 0.04),
-        0 8px 18px rgba(0, 0, 0, 0.04);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .logo-area img {
-      max-width: 100%;
-      max-height: 100%;
+    .top-logo img {
+      width: 88%;
+      max-width: 340px;
+      max-height: 165px;
       object-fit: contain;
       display: block;
     }
 
     .logo-placeholder {
+      width: 88%;
+      max-width: 340px;
+      height: 128px;
+      border-radius: 24px;
+      border: 2px dashed rgba(0, 0, 0, 0.18);
       color: rgba(0, 0, 0, 0.35);
-      font-size: 14px;
-      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
       letter-spacing: 1px;
     }
 
+    /* 로그인폼 바깥 유리판 */
+    .login-panel {
+      width: 100%;
+      padding: 22px 17px 18px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.08),
+        inset 1px 1px 0 rgba(255, 255, 255, 0.8),
+        inset -1px -1px 0 rgba(0, 0, 0, 0.04);
+    }
+
     .input-box {
-      margin-bottom: 14px;
+      margin-bottom: 13px;
     }
 
     .input-box input {
       width: 100%;
       height: 50px;
-      padding: 0 16px;
-      border-radius: 16px;
-      border: none;
+      padding: 0 15px;
+      border-radius: 5px;
       outline: none;
-      background: transparent;
-
-      border-top: 1px solid rgba(255, 255, 255, 0.9);
-      border-left: 1px solid rgba(255, 255, 255, 0.9);
-      border-right: 1px solid rgba(0, 0, 0, 0.10);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.10);
-
-      box-shadow:
-        inset 1px 1px 0 rgba(255, 255, 255, 0.85),
-        inset -1px -1px 0 rgba(0, 0, 0, 0.04),
-        0 5px 12px rgba(0, 0, 0, 0.04);
-
-      font-size: 15px;
+      background: rgba(255, 255, 255, 0.78);
       color: #222;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: fantasy, Arial, sans-serif;
+      border: 2px solid rgba(38, 0, 3, 0.55);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.75),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.08),
+        0 2px 0 rgba(105, 0, 6, 0.18),
+        0 5px 10px rgba(0, 0, 0, 0.06);
     }
 
     .input-box input::placeholder {
-      color: rgba(0, 0, 0, 0.42);
+      color: rgba(0, 0, 0, 0.48);
     }
 
-    .btn-row {
+    .btn-base {
+      border: 2px solid rgba(38, 0, 3, 0.55);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.12),
+        0 2px 0 rgba(105, 0, 6, 0.20),
+        0 6px 10px rgba(0, 0, 0, 0.08);
+      color: #ffffff;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+      transition: 0.12s;
+    }
+
+    /* 로그인 폼: 은색 */
+    .login-button {
+      width: 100%;
+      height: 54px;
+      margin-top: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 900;
+      font-family: fantasy, Arial, sans-serif;
+      background: linear-gradient(180deg, #f7f7f7 0%, #d9d9d9 46%, #a8a8a8 100%);
+      color: #2b2b2b;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
+    }
+
+    .sub-buttons {
       display: flex;
       gap: 10px;
-      margin-top: 18px;
+      margin-top: 16px;
     }
 
-    .btn-row button {
+    /* 회원가입 / 무기명가입 폼: 파스텔 보라색 */
+    .sub-buttons button {
       flex: 1;
-      height: 48px;
-      border-radius: 16px;
-      border: none;
+      height: 50px;
+      border-radius: 5px;
       cursor: pointer;
-      background: transparent;
-
-      border-top: 1px solid rgba(255, 255, 255, 0.95);
-      border-left: 1px solid rgba(255, 255, 255, 0.95);
-      border-right: 1px solid rgba(0, 0, 0, 0.12);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-
-      box-shadow:
-        inset 1px 1px 0 rgba(255, 255, 255, 0.9),
-        inset -1px -1px 0 rgba(0, 0, 0, 0.05),
-        0 7px 15px rgba(0, 0, 0, 0.06);
-
-      color: #222;
       font-size: 15px;
-      font-weight: bold;
-      transition: 0.15s;
+      font-weight: 900;
+      font-family: fantasy, Arial, sans-serif;
+      background: linear-gradient(180deg, #e8d8ff 0%, #c7a6ef 48%, #a47ad9 100%);
     }
 
-    .btn-row button:active {
-      transform: translateY(2px);
+    /* 텔레그램 고객센터 폼: 파란색 */
+    .telegram-link {
+      margin-top: 14px;
+      width: 100%;
+      height: 48px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 900;
+      font-family: fantasy, Arial, sans-serif;
+      background: linear-gradient(180deg, #5ecbff 0%, #1f9eea 48%, #0b6fc6 100%);
+    }
+
+    .telegram-mark {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #229ed9;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+      flex: 0 0 auto;
+    }
+
+    .telegram-mark svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+      fill: #ffffff;
+      margin-left: -1px;
+    }
+
+    button:active,
+    .telegram-link:active {
+      transform: translateY(3px);
       box-shadow:
-        inset 1px 1px 0 rgba(255, 255, 255, 0.7),
-        inset -1px -1px 0 rgba(0, 0, 0, 0.08),
-        0 3px 8px rgba(0, 0, 0, 0.05);
+        inset 0 2px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.12),
+        0 1px 0 rgba(105, 0, 6, 0.18),
+        0 3px 7px rgba(0, 0, 0, 0.06);
     }
   </style>
 </head>
 
 <body>
-  <div class="login-wrap">
-    <div class="glass-panel">
+  <main class="page">
 
-      <div class="logo-area">
-        <img src="image/logo.png" alt="로고" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <div class="logo-placeholder" style="display:none;">LOGO IMAGE</div>
-      </div>
+    <!-- 로그인폼 밖 12시 방향 큰 로고 -->
+    <div class="top-logo">
+      <img src="image/logo.png" alt="로고" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="logo-placeholder" style="display:none;">LOGO</div>
+    </div>
 
+    <!-- 로그인폼 -->
+    <section class="login-panel">
       <div class="input-box">
         <input type="text" placeholder="아이디">
       </div>
@@ -172,12 +225,24 @@
         <input type="password" placeholder="비밀번호">
       </div>
 
-      <div class="btn-row">
-        <button type="button">로그인</button>
-        <button type="button">회원가입</button>
+      <button type="button" class="login-button btn-base">로그인</button>
+
+      <div class="sub-buttons">
+        <button type="button" class="btn-base">회원가입</button>
+        <button type="button" class="btn-base">무기명가입</button>
       </div>
 
-    </div>
-  </div>
+      <!-- 텔레그램 고객센터: 링크는 나중에 href만 바꾸면 됨 -->
+      <a href="#" class="telegram-link btn-base">
+        <span class="telegram-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M21.8 3.4 18.5 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.8 13.5.9 12c-1.1-.3-1.1-1.1.2-1.6L20.3 3c.9-.3 1.7.2 1.5.4z"/>
+          </svg>
+        </span>
+        <span>고객센터</span>
+      </a>
+    </section>
+
+  </main>
 </body>
 </html>

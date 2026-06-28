@@ -2,4 +2,4 @@
 // HTML 안이 아니라 여기에서만 코드를 설정하면 됩니다.
 // 예시: window.SIGNUP_CODE = "1357";
 
-window.SIGNUP_CODE = "";
+window.SIGNUP_CODE = "0000";

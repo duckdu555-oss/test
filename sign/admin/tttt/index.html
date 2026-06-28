@@ -26,7 +26,7 @@
       min-height: 100vh;
       background: #b7b7b7;
       font-family: 'Jalnan', Arial, sans-serif;
-      padding: 14px 8px 24px;
+      padding: 8px 4px 20px;
       color: #111;
     }
 
@@ -83,6 +83,7 @@
 
     .admin-wrap {
       display: none;
+      width: 100%;
       max-width: 100%;
       margin: 0 auto;
     }
@@ -91,45 +92,44 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
+      gap: 5px;
+      margin-bottom: 7px;
     }
 
     .admin-title {
-      font-size: 18px;
+      font-size: 14px;
       white-space: nowrap;
     }
 
     .admin-actions {
       display: flex;
-      gap: 5px;
+      gap: 4px;
     }
 
     .admin-actions button {
-      height: 32px;
-      padding: 0 8px;
+      height: 28px;
+      padding: 0 6px;
       border: 1px solid rgba(60, 60, 60, 0.25);
-      border-radius: 5px;
+      border-radius: 4px;
       background: #8a8a8a;
       color: #000;
       font-family: inherit;
-      font-size: 12px;
+      font-size: 10px;
       cursor: pointer;
       white-space: nowrap;
     }
 
     .table-box {
       width: 100%;
-      overflow-x: auto;
+      overflow-x: hidden;
       background: #d0d0d0;
       border: 1px solid rgba(70, 70, 70, 0.24);
-      border-radius: 7px;
+      border-radius: 6px;
       box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
     }
 
     table {
       width: 100%;
-      min-width: 760px;
       border-collapse: collapse;
       text-align: center;
       table-layout: fixed;
@@ -139,8 +139,9 @@
     td {
       border-bottom: 1px solid rgba(80, 80, 80, 0.18);
       border-right: 1px solid rgba(80, 80, 80, 0.13);
-      padding: 6px 3px;
-      font-size: 10px;
+      padding: 4px 1px;
+      font-size: 7.5px;
+      line-height: 1.25;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -157,27 +158,36 @@
       font-weight: bold;
     }
 
-    .action-cell {
-      width: 72px;
-    }
+    .col-action { width: 17%; }
+    .col-status { width: 6%; }
+    .col-nick { width: 8%; }
+    .col-name { width: 7%; }
+    .col-bank { width: 9%; }
+    .col-holder { width: 7%; }
+    .col-account { width: 12%; }
+    .col-phone { width: 12%; }
+    .col-id { width: 8%; }
+    .col-pass { width: 7%; }
+    .col-expass { width: 7%; }
 
     .action-buttons {
       display: flex;
-      gap: 3px;
+      gap: 1px;
       justify-content: center;
       align-items: center;
     }
 
-    .approve-btn,
-    .reject-btn {
-      height: 24px;
-      min-width: 31px;
-      padding: 0 3px;
-      border-radius: 4px;
+    .status-btn {
+      height: 20px;
+      min-width: 25px;
+      padding: 0 2px;
+      border-radius: 3px;
       border: 1px solid rgba(60, 60, 60, 0.22);
-      font-size: 10px;
+      font-size: 7.5px;
       cursor: pointer;
       color: #000;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
     }
 
     .approve-btn {
@@ -186,6 +196,10 @@
 
     .reject-btn {
       background: #d89a9a;
+    }
+
+    .pending-btn {
+      background: #d8d08f;
     }
 
     .status-approved {
@@ -207,28 +221,28 @@
       font-size: 13px;
     }
 
-    @media (max-width: 600px) {
-      body {
-        padding: 10px 5px 20px;
+    @media (max-width: 430px) {
+      th,
+      td {
+        font-size: 6.5px;
+        padding: 3px 1px;
+      }
+
+      .status-btn {
+        height: 19px;
+        min-width: 22px;
+        font-size: 6.5px;
+        padding: 0 1px;
       }
 
       .admin-title {
-        font-size: 15px;
+        font-size: 12px;
       }
 
       .admin-actions button {
-        font-size: 10px;
-        padding: 0 6px;
-      }
-
-      table {
-        min-width: 720px;
-      }
-
-      th,
-      td {
+        height: 26px;
         font-size: 9px;
-        padding: 5px 2px;
+        padding: 0 4px;
       }
     }
   </style>
@@ -257,17 +271,17 @@
       <table>
         <thead>
           <tr>
-            <th class="action-cell">승인/거절</th>
-            <th>상태</th>
-            <th>닉네임</th>
-            <th>이름</th>
-            <th>은행정보</th>
-            <th>예금주</th>
-            <th>계좌번호</th>
-            <th>휴대폰번호</th>
-            <th>아이디</th>
-            <th>비밀번호</th>
-            <th>환전비번</th>
+            <th class="col-action">승인/거절/대기</th>
+            <th class="col-status">상태</th>
+            <th class="col-nick">닉네임</th>
+            <th class="col-name">이름</th>
+            <th class="col-bank">은행정보</th>
+            <th class="col-holder">예금주</th>
+            <th class="col-account">계좌번호</th>
+            <th class="col-phone">휴대폰번호</th>
+            <th class="col-id">아이디</th>
+            <th class="col-pass">비밀번호</th>
+            <th class="col-expass">환전비번</th>
           </tr>
         </thead>
         <tbody id="memberTable"></tbody>
@@ -325,50 +339,71 @@
       return "status-pending";
     }
 
-    function renderMembers() {
-      const members = getMembers()
+    function getSortedMembersWithIndex() {
+      const order = { approved: 1, rejected: 2, pending: 3 };
+      return getMembers()
         .map(function(member, originalIndex) {
-          member._originalIndex = originalIndex;
-          return member;
+          return { member: member, originalIndex: originalIndex };
         })
         .sort(function(a, b) {
-          const order = { approved: 1, rejected: 2, pending: 3 };
-          return (order[a.status || "pending"] || 3) - (order[b.status || "pending"] || 3);
+          const aStatus = a.member.status || "pending";
+          const bStatus = b.member.status || "pending";
+          return (order[aStatus] || 3) - (order[bStatus] || 3);
         });
+    }
+
+    function renderMembers() {
+      const wrappedMembers = getSortedMembersWithIndex();
       memberTable.innerHTML = "";
 
-      if (!members.length) {
+      if (!wrappedMembers.length) {
         emptyText.style.display = "block";
         return;
       }
 
       emptyText.style.display = "none";
 
-      members.forEach(function(member, index) {
-        if (!member.status) member.status = "pending";
+      wrappedMembers.forEach(function(item) {
+        const member = item.member;
+        const originalIndex = item.originalIndex;
+
+        if (!member.status) {
+          member.status = "pending";
+        }
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td class="action-cell">
+          <td class="col-action">
             <div class="action-buttons">
-              <button type="button" class="approve-btn" data-index="${member._originalIndex}">승인</button>
-              <button type="button" class="reject-btn" data-index="${member._originalIndex}">거절</button>
+              <button type="button" class="status-btn approve-btn" data-index="${originalIndex}" data-status="approved">승인</button>
+              <button type="button" class="status-btn reject-btn" data-index="${originalIndex}" data-status="rejected">거절</button>
+              <button type="button" class="status-btn pending-btn" data-index="${originalIndex}" data-status="pending">대기</button>
             </div>
           </td>
-          <td class="${statusClass(member.status)}">${statusText(member.status)}</td>
-          <td>${escapeHtml(member.nickname)}</td>
-          <td>${escapeHtml(member.realName)}</td>
-          <td>${escapeHtml(member.bank)}</td>
-          <td>${escapeHtml(member.accountHolder)}</td>
-          <td>${escapeHtml(member.accountNumber)}</td>
-          <td>${escapeHtml(member.phone)}</td>
-          <td>${escapeHtml(member.userId)}</td>
-          <td>${escapeHtml(member.password)}</td>
-          <td>${escapeHtml(member.exchangePassword)}</td>
+          <td class="col-status ${statusClass(member.status)}">${statusText(member.status)}</td>
+          <td class="col-nick">${escapeHtml(member.nickname)}</td>
+          <td class="col-name">${escapeHtml(member.realName)}</td>
+          <td class="col-bank">${escapeHtml(member.bank)}</td>
+          <td class="col-holder">${escapeHtml(member.accountHolder)}</td>
+          <td class="col-account">${escapeHtml(member.accountNumber)}</td>
+          <td class="col-phone">${escapeHtml(member.phone)}</td>
+          <td class="col-id">${escapeHtml(member.userId)}</td>
+          <td class="col-pass">${escapeHtml(member.password)}</td>
+          <td class="col-expass">${escapeHtml(member.exchangePassword)}</td>
         `;
         memberTable.appendChild(tr);
       });
 
+      // 기존 데이터 중 상태가 비어있는 회원은 대기로 저장
+      const members = getMembers();
+      let changed = false;
+      members.forEach(function(member) {
+        if (!member.status) {
+          member.status = "pending";
+          changed = true;
+        }
+      });
+      if (changed) saveMembers(members);
     }
 
     function setMemberStatus(index, status) {
@@ -376,16 +411,19 @@
       if (!members[index]) return;
 
       members[index].status = status;
+      saveMembers(members);
       renderMembers();
     }
 
     memberTable.addEventListener("click", function(e) {
-      if (e.target.classList.contains("approve-btn")) {
-        setMemberStatus(Number(e.target.dataset.index), "approved");
-      }
+      const button = e.target.closest(".status-btn");
+      if (!button) return;
 
-      if (e.target.classList.contains("reject-btn")) {
-        setMemberStatus(Number(e.target.dataset.index), "rejected");
+      const index = Number(button.dataset.index);
+      const status = button.dataset.status;
+
+      if (!Number.isNaN(index) && status) {
+        setMemberStatus(index, status);
       }
     });
 

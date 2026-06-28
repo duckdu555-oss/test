@@ -293,6 +293,88 @@
       background: #c4c4c4;
     }
 
+  
+    /* 로그인 버튼 빛나는 효과 */
+    .login-btn,
+    button.login-btn {
+      position: relative;
+      overflow: hidden;
+      animation: loginGlow 2.2s ease-in-out infinite;
+    }
+
+    .login-btn::before,
+    button.login-btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 80%;
+      height: 100%;
+      background: linear-gradient(
+        110deg,
+        transparent,
+        rgba(255, 255, 255, 0.55),
+        transparent
+      );
+      transform: skewX(-18deg);
+      animation: loginShine 2.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes loginGlow {
+      0%, 100% {
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.55),
+          0 5px 12px rgba(0, 0, 0, 0.16);
+      }
+      50% {
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.75),
+          0 0 16px rgba(255, 255, 255, 0.75),
+          0 7px 18px rgba(0, 0, 0, 0.20);
+      }
+    }
+
+    @keyframes loginShine {
+      0% { left: -120%; }
+      45% { left: 140%; }
+      100% { left: 140%; }
+    }
+
+    button,
+    input,
+    select,
+    .telegram-link {
+      transition:
+        transform 0.12s ease,
+        box-shadow 0.12s ease,
+        filter 0.12s ease,
+        background 0.12s ease;
+    }
+
+    button:active,
+    .telegram-link:active {
+      transform: translateY(2px) scale(0.985);
+      filter: brightness(0.93);
+    }
+
+    input:focus,
+    select:focus {
+      transform: translateY(1px);
+      box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.12),
+        0 0 0 2px rgba(255, 255, 255, 0.45);
+    }
+
+  
+    .login-message {
+      min-height: 18px;
+      margin-top: 8px;
+      text-align: center;
+      font-size: 13px;
+      color: #b00020;
+    }
+
   </style>
 </head>
 
@@ -308,14 +390,14 @@
     <!-- 로그인폼 -->
     <section class="login-panel">
       <div class="input-box">
-        <input type="text" placeholder="아이디">
+        <input id="loginUserId">
       </div>
 
       <div class="input-box">
-        <input type="password" placeholder="비밀번호">
+        <input id="loginPassword">
       </div>
 
-      <button type="button" class="login-button btn-base">로그인</button>
+      <button type="button" class="login-button btn-base login-btn" id="loginBtn">로그인</button>
 
       <div class="sub-buttons">
         <button type="button" class="btn-base" type="button" id="signupOpenBtn">회원가입</button>
@@ -329,6 +411,69 @@
     </section>
 
   </main>
+
+  <script>
+    const LOGIN_STORAGE_KEY = "signupMembers";
+    const loginBtn = document.getElementById("loginBtn");
+    const loginUserId = document.getElementById("loginUserId");
+    const loginPassword = document.getElementById("loginPassword");
+    const loginMessage = document.getElementById("loginMessage");
+
+    function getLoginMembers() {
+      try {
+        return JSON.parse(localStorage.getItem(LOGIN_STORAGE_KEY)) || [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function runLoginCheck() {
+      const userId = loginUserId ? loginUserId.value.trim() : "";
+      const password = loginPassword ? loginPassword.value.trim() : "";
+
+      if (!userId || !password) {
+        loginMessage.textContent = "아이디와 비밀번호를 입력하세요.";
+        return;
+      }
+
+      const members = getLoginMembers();
+      const member = members.find(function(item) {
+        return item.userId === userId && item.password === password;
+      });
+
+      if (!member) {
+        loginMessage.textContent = "아이디 또는 비밀번호가 맞지 않습니다.";
+        return;
+      }
+
+      if (member.status === "approved") {
+        location.href = "../main/index.html";
+        return;
+      }
+
+      if (member.status === "rejected") {
+        loginMessage.style.color = "#b00020";
+        loginMessage.textContent = "회원가입이 거절되었습니다.";
+        return;
+      }
+
+      loginMessage.style.color = "#006a9e";
+      loginMessage.textContent = "텔레그램 문의";
+    }
+
+    if (loginBtn) {
+      loginBtn.addEventListener("click", runLoginCheck);
+    }
+
+    if (loginPassword) {
+      loginPassword.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+          runLoginCheck();
+        }
+      });
+    }
+  </script>
+
   <script src="../js/config.js"></script>
 
   <script>
@@ -338,10 +483,12 @@
     }, { passive: false });
   </script>
 
+  <div class="login-message" id="loginMessage"></div>
+
   <div class="code-modal" id="codeModal">
     <div class="code-box">
-      <div class="code-title">코드 입력</div>
-      <input class="code-input" id="signupCodeInput" type="text" placeholder="코드 입력" autocomplete="off">
+      <div class="code-title">가입 코드</div>
+      <input class="code-input" id="signupCodeInput" type="text" placeholder="" autocomplete="off">
       <div class="code-error" id="codeError"></div>
       <div class="code-actions">
         <button type="button" class="cancel-btn" id="codeCancelBtn">취소</button>
